@@ -1,39 +1,89 @@
-# Churn Prediction Using Telco Customer Data
+# 🔄 Customer Churn Prediction
 
-This project analyzes customer churn using the Telco Customer Churn dataset. It explores customer behavior and builds a model to predict which customers are likely to leave a telecommunications company.
+## Overview
+This project uses customer account, service, and demographic data to predict churn in a telecom company. The goal is to identify customers likely to cancel their services so the business can take proactive action.
 
-## 📁 Project Structure
+### Tools & Libraries
+- **Python**: pandas, numpy, matplotlib, seaborn
+- **scikit-learn**: modeling, evaluation, GridSearchCV
+- **joblib**: model export
 
+---
 
-## 📊 Dataset
+## 1. Exploratory Data Analysis (EDA)
+- Inspected distribution of key features
+- Visualized churn rates by service type, contract length, and charges
+- Identified strong relationships between contract type and churn
 
-- **Source**: [IBM Sample Data Sets](https://www.ibm.com/communities/analytics/watson-analytics-blog/guide-to-sample-datasets/)
-- **Description**: Each row represents a customer. Columns describe customer attributes such as services signed up for, tenure, payment methods, and whether they have churned.
+## 2. Preprocessing
+- Dropped `customerID` as a non-predictive ID column
+- Converted `TotalCharges` to numeric and filled missing values
+- Encoded categorical variables using `pd.get_dummies`
 
-## 🔍 Key Questions
+---
 
-- What features are most associated with customer churn?
-- Can we accurately predict churn based on customer behavior?
-- What types of customers are at the highest risk of leaving?
+## 3. Modeling
+### Models Trained:
+- Logistic Regression
+- Random Forest (base)
+- Random Forest (with hyperparameter tuning)
 
-## 📓 Notebook Overview
+### Evaluation Metrics:
+- Confusion Matrix
+- Classification Report
+- ROC AUC Curve
 
-- **01_eda.ipynb**:  
-  - Loads and cleans data  
-  - Visualizes churn distribution  
-  - Explores correlations  
-  - Prepares data for modeling (encoding, scaling)
+---
 
-## 🧠 Techniques Used
+## 4. Results
+- **Best model**: Random Forest (GridSearchCV-tuned)
+- **AUC Score**: High-performing classifier on test set
+- **Top Features**:
+  - `Contract_Two year`
+  - `MonthlyCharges`
+  - `tenure`
+  - `OnlineSecurity_No`
 
-- Exploratory Data Analysis (EDA)
-- Data preprocessing (handling missing values, encoding)
-- Feature engineering
-- Logistic Regression & Random Forest (optional if modeling included)
+---
 
-## 🚀 How to Run
+## 5. Exported Model
+The final tuned model is saved using `joblib`:
+```python
+joblib.dump(best_rf, "churn_rf_model.pkl")
+```
 
-1. Clone this repo:
-   ```bash
-   git clone git@github.com:kenjiyanaba/churn-prediction.git
-   cd churn-prediction
+---
+
+## 6. Next Steps
+- Build an interactive **dashboard** using Streamlit or Flask
+- Add **SHAP** explanations for model interpretability
+- Deploy model as an API or on a cloud platform
+
+---
+
+## 7. How to Run This Project
+1. Clone the repo:
+```bash
+git clone https://github.com/kenjiyanaba/churn_prediction.git
+cd churn_prediction
+```
+2. Install requirements:
+```bash
+pip install -r requirements.txt
+```
+3. Open Jupyter Notebook:
+```bash
+jupyter notebook 01_eda.ipynb
+```
+4. Train models, view metrics, and explore results.
+
+---
+
+## Author
+**Kenji Liu**  
+[GitHub](https://github.com/kenjiyanaba) | [Portfolio](https://kenjiyanaba.github.io/) | [LinkedIn](https://linkedin.com/in/kenji-liu)
+
+---
+
+## License
+This project is open-source and free to use under the [MIT License](LICENSE).
